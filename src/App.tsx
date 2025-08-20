@@ -1,9 +1,11 @@
+import { Outlet } from "react-router";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
-    <>
-      <h1>Parcel Delivery Project</h1>
-    </>
+    <MainLayout>
+      <Outlet/>
+    </MainLayout>
   )
 }
 
