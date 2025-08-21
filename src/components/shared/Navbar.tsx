@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router";
-import { Divide, LogOutIcon, PinIcon } from "lucide-react";
+import { LogOutIcon, PinIcon } from "lucide-react";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -77,7 +77,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white shadow">
+    <header className="bg-white shadow fixed w-full z-100">
       <div className="mx-auto px-4">
         <div className="flex h-13 items-center justify-between">
           {/* menu */}

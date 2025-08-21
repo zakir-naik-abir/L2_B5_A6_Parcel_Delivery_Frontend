@@ -1,5 +1,5 @@
 import App from "@/App";
-import About from "@/pages/About";
+import AboutPage from "@/pages/About";
 import Contact from "@/pages/Contact";
 import HomePage from "@/pages/HomePage";
 import { Register } from "@/pages/Register";
@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
         index: true,
       },
       {
-        Component: About,
+        Component: AboutPage,
         path: 'about'
       },
       {

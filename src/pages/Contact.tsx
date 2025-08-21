@@ -35,7 +35,7 @@ const ContactPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="w-full max-w-6xl mx-auto lg:grid lg:grid-cols-2 shadow-xl rounded-lg overflow-hidden bg-white">
+      <div className="w-full max-w-6xl mx-auto md:grid md:grid-cols-1 lg:grid lg:grid-cols-2 shadow-xl rounded-lg overflow-hidden bg-white">
         
         {/* contact information */}
         <div className="p-8 md:p-12">
