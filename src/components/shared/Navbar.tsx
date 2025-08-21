@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ModeToggle } from "../ModeToggler";
 
+
 const navLink = (
   <>
     <li>
@@ -48,22 +49,12 @@ const navLink = (
     </li>
     <li>
       <NavLink
-        to={"/login"}
+        to={"/register"}
         className={({ isActive }) =>
           isActive ? "text-primary font-semibold" : "font-semibold"
         }
       >
-        Login
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to={"/signup"}
-        className={({ isActive }) =>
-          isActive ? "text-primary font-semibold" : "font-semibold"
-        }
-      >
-        Signup
+        Register
       </NavLink>
     </li>
   </>
@@ -72,7 +63,7 @@ const navLink = (
 export default function Navbar() {
   return (
     <header className="bg-white shadow">
-      <div className="mx-auto max-w-screen-xl px-4">
+      <div className="mx-auto px-4">
         <div className="flex h-13 items-center justify-between">
           {/* menu */}
           <div className="flex items-center justify-center gap-4">
@@ -100,10 +91,8 @@ export default function Navbar() {
                   </Button>
                 </DropdownMenuTrigger>
 
-                <DropdownMenuContent >
-              <ul className="flex  flex-col gap-3 text-sm">{navLink}
-                
-              </ul>
+                <DropdownMenuContent>
+                  <ul className="flex  flex-col gap-3 text-sm">{navLink}</ul>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -117,8 +106,9 @@ export default function Navbar() {
 
           <div className="md:flex md:items-center md:gap-12">
             <nav aria-label="Global" className="hidden md:block">
-              <ul className="flex items-center gap-6 text-sm">{navLink}
-                
+              <ul className="flex items-center gap-6 text-sm">
+                {navLink}
+              
               </ul>
             </nav>
 
@@ -156,7 +146,7 @@ export default function Navbar() {
                     <span>Option 1</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <ModeToggle/>
+                    <ModeToggle />
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
