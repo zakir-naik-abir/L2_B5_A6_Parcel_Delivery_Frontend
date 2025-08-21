@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router";
-import { LogOutIcon, PinIcon } from "lucide-react";
+import { Divide, LogOutIcon, PinIcon } from "lucide-react";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ModeToggle } from "../ModeToggler";
-
+import {
+  authApi,
+  useLogoutMutation,
+  useUserInfoQuery,
+} from "@/redux/features/auth/auth.api";
+import { useAppDispatch } from "@/redux/hook";
 
 const navLink = (
   <>
@@ -61,6 +66,16 @@ const navLink = (
 );
 
 export default function Navbar() {
+  const { data } = useUserInfoQuery(undefined);
+  console.log(data);
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await logout(undefined);
+    dispatch(authApi.util.resetApiState());
+  };
+
   return (
     <header className="bg-white shadow">
       <div className="mx-auto px-4">
@@ -104,13 +119,13 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="md:flex md:items-center md:gap-12">
+          <div className="flex items-center gap-2">
             <nav aria-label="Global" className="hidden md:block">
-              <ul className="flex items-center gap-6 text-sm">
-                {navLink}
-              
-              </ul>
+              <ul className="flex items-center gap-6 text-sm">{navLink}</ul>
             </nav>
+            <div>
+              <ModeToggle />
+            </div>
 
             {/* dropdown */}
             <DropdownMenu>
@@ -122,20 +137,24 @@ export default function Navbar() {
                   <Avatar className="h-10 w-10">
                     <AvatarImage src="./avatar.png" alt="Profile image" />
                   </Avatar>
+                  {data?.data?.email ? (
+                    <div>{data?.data?.imageUrl}</div>
+                  ) : (
+                    <></>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className="max-w-64">
                 <DropdownMenuLabel className="flex min-w-0 flex-col">
                   <span className="text-foreground truncate text-sm font-medium">
-                    Abir
+                    {data?.data?.name}
                   </span>
                   <span className="text-muted-foreground truncate text-xs font-normal">
-                    abir@gmail.com
+                    {data?.data?.email}
                   </span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
                     <PinIcon
@@ -143,22 +162,41 @@ export default function Navbar() {
                       className="opacity-60"
                       aria-hidden="true"
                     />
-                    <span>Option 1</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <ModeToggle />
+                    <span>Dashboard</span>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem className="flex gap-4">
                   <LogOutIcon
                     size={16}
                     className="opacity-60"
                     aria-hidden="true"
                   />
-                  <span>Logout</span>
+                  {data?.data?.email ? (
+                    <>
+                      <span onClick={handleLogout}>Logout</span>
+                    </>
+                  ) : (
+                    <>
+                      <Link to={'/register'}>Loin</Link>
+                    </>
+                  )}
                 </DropdownMenuItem>
               </DropdownMenuContent>
+              {/* {data?.data?.email ? (
+                <div></div>
+              ) : (
+                <>
+                  <DropdownMenuItem>
+                    <LogOutIcon
+                      size={16}
+                      className="opacity-60"
+                      aria-hidden="true"
+                    />
+                    <Button onClick={handleLogout}>Login</Button>
+                  </DropdownMenuItem>
+                </>
+              )} */}
             </DropdownMenu>
           </div>
         </div>

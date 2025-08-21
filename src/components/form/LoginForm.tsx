@@ -1,64 +1,91 @@
-import React, { useState } from 'react';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Input } from '../ui/input';
+import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { Button } from '../ui/button';
+import { useLoginMutation } from '@/redux/features/auth/auth.api';
+import { toast } from 'sonner';
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  
+  const navigate = useNavigate();
+  const form = useForm({
+      defaultValues: {
+        email: "superadmin@gmail.com",
+        password: "A@12345678",
+      },
+    });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Login Data:', { email, password });
-    alert('Login...');
+    const [login] = useLoginMutation();
+
+  const onSubmit: SubmitHandler<FieldValues> = async(data) => {
+  
+    try {
+      const result = await login(data).unwrap();
+
+      if(result.success){
+        toast.success('Login successful')
+        navigate('/');
+      }
+    } catch (err) {
+      console.error(err);
+
+      // if(err.data.message ==="Incorrect Email"){
+      //   toast.error("Incorrect Email")
+      // };
+
+      if(err.data.message ==="Password is wrong"){
+        toast.error("Incorrect Password")
+      };
+      
+      if(err.data.message ==="You are not verified"){
+        toast.error("Your account is not verified");
+        navigate("/verify", {state: data.email });
+      }
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email Address :
-        </label>
-        <div className="mt-1">
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
-            placeholder="example@gmail.com"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Password :
-        </label>
-        <div className="mt-1">
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
-            placeholder="Your password"
-          />
-        </div>
-      </div>
-
-      <div>
-        <button
-          type="submit"
-          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-400 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition-colors duration-300"
-        >
+    <Form {...form}>
+      <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email Address :</FormLabel>
+              <FormControl>
+                <Input placeholder="example@gmail.com" {...field} />
+              </FormControl>
+              <FormDescription className="sr-only">
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Create Password :</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter a strong password" {...field} />
+              </FormControl>
+              <FormDescription className="sr-only">
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <Button type="submit" className="w-full  bg-purple-400 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition-colors duration-300">
           Submit
-        </button>
-      </div>
-    </form>
+        </Button>
+      </form>
+    </Form>
   );
 };
 
