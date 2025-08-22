@@ -20,7 +20,7 @@ export interface ISidebarItem {
   }[]
 };
 
-export type TUserRole = "ADMIN" | "SENDER" | "RECEIVER";
+export type TUserRole = "SUPER_ADMIN" | "ADMIN" | "SENDER" | "RECEIVER";
 
 type ZodIssue = {
   code: string;

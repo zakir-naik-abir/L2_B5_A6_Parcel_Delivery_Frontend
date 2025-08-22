@@ -68,6 +68,7 @@ const navLink = (
 export default function Navbar() {
   const { data } = useUserInfoQuery(undefined);
   console.log(data);
+  
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
 
@@ -162,7 +163,7 @@ export default function Navbar() {
                       className="opacity-60"
                       aria-hidden="true"
                     />
-                    <span>Dashboard</span>
+                    <Link to={'/dashboard'}>Dashboard</Link>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
