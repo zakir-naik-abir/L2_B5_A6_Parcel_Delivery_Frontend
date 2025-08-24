@@ -1,7 +1,6 @@
 import App from "@/App";
 import AboutPage from "@/pages/About";
 import AllParcel from "@/pages/Admin/AllParcel";
-import AllUser from "@/pages/Admin/AllUser";
 import { Analytics } from "@/pages/Admin/Analytics";
 import Contact from "@/pages/Contact";
 import HomePage from "@/pages/HomePage";
@@ -10,9 +9,12 @@ import Verify from "@/pages/Verify";
 import { createBrowserRouter } from "react-router";
 import PrivateRoute from "./PrivateRoute";
 import { DashboardContent } from "@/dashboards/DashboardContent";
-import MyTasksPage from "@/pages/DemiveryMan/MytasksPage";
+import MyTasksPage from "@/pages/DeliveryMan/MytaskPage";
 import CreateParcelPage from "@/pages/Sender/CreateParcelPage";
 import ManageUsersPage from "@/pages/Admin/ManageUsersPage";
+import ShipmentHistoryPage from "@/pages/DeliveryMan/ShipmentHistoryPage";
+import TrackParcelPage from "@/pages/TrackParcelPage";
+import TrackingPage from "@/pages/Trakingpage";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ export const router = createBrowserRouter([
       {
         Component: Verify,
         path: "verify",
+      },
+      {
+        Component: TrackParcelPage,
+        path: "track-parcel",
+      },
+      {
+        Component: TrackingPage,
+        path: "track/:trackingId",
       },
     ],
   },
@@ -83,6 +93,10 @@ export const router = createBrowserRouter([
             Component: MyTasksPage,
             path: "my-task",
           },
+          {
+            Component: ShipmentHistoryPage,
+            path: 'shipment-history'
+          }
         ],
       },
     ],

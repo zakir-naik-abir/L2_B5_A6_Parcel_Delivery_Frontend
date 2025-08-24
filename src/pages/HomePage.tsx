@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Rocket, ShieldCheck, Truck } from 'lucide-react';
+import { Link } from 'react-router';
 
 // Framer Motion Variants for animations
 const containerVariants = {
@@ -39,7 +40,7 @@ const HomePage = () => {
         </motion.p>
         <motion.div variants={itemVariants} className="flex gap-4">
           <Button size="lg">Get Started</Button>
-          <Button size="lg" variant="outline">Track Parcel</Button>
+          <Link to={'/track-parcel'}><Button size="lg" variant="outline">Track Parcel</Button></Link>
         </motion.div>
       </motion.section>
 
