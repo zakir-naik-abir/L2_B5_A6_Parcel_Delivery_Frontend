@@ -3,15 +3,16 @@ export type IParcelStatus = "Requested" | "Approved" | "Dispatched" | "In-Transi
 
 
 export type IParcelPackage = {
-   _id: string;
-   receiverName: string;
-   receiverPhone: string;
+    _id: string;
+  sender: string;
+  receiverName: string;
+  receiverPhone: string;
+  requestedDeliveryDate: string; 
    receiverAddress: string;
    deliveryAddress: string;
-   requestedDeliveryDate: Date;
    parcelWeight: number;
    parcelType: string;
-   deliveryFee: number;
+   deliveryFee?: number;
    trackingId: string;
    status: IParcelStatus;
    createdAt: string

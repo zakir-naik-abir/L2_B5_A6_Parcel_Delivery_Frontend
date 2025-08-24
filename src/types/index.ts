@@ -9,6 +9,7 @@ export interface IResponse<T>{
   success: boolean;
   message: string;
   data: T;
+  meta?: IMeta
 };
 
 export interface ISidebarItem {
@@ -19,6 +20,12 @@ export interface ISidebarItem {
     component: ComponentType;
   }[]
 };
+
+export interface IMeta {
+  page: number;
+  limit: number;
+  total: number;
+}
 
 export type TUserRole = "SUPER_ADMIN" | "ADMIN" | "SENDER" | "RECEIVER";
 
@@ -45,3 +52,17 @@ export interface IErrorResponse {
   };
   stack?: string
 };
+
+export interface IUserPackage {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  isBlocked: boolean;
+}
+
+export interface IPaginatedResponse<T> {
+  data: T[];
+  meta: IMeta;
+}
+

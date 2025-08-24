@@ -1,15 +1,23 @@
 import App from "@/App";
-import { DashboardContent } from "@/dashboards/DashboardContent";
 import AboutPage from "@/pages/About";
+import AllParcel from "@/pages/Admin/AllParcel";
+import AllUser from "@/pages/Admin/AllUser";
+import { Analytics } from "@/pages/Admin/Analytics";
 import Contact from "@/pages/Contact";
 import HomePage from "@/pages/HomePage";
 import { Register } from "@/pages/Register";
+import Verify from "@/pages/Verify";
 import { createBrowserRouter } from "react-router";
+import PrivateRoute from "./PrivateRoute";
+import { DashboardContent } from "@/dashboards/DashboardContent";
+import MyTasksPage from "@/pages/DemiveryMan/MytasksPage";
+import CreateParcelPage from "@/pages/Sender/CreateParcelPage";
+import ManageUsersPage from "@/pages/Admin/ManageUsersPage";
 
 export const router = createBrowserRouter([
   {
     Component: App,
-    path: '/',
+    path: "/",
     children: [
       {
         Component: HomePage,
@@ -17,21 +25,78 @@ export const router = createBrowserRouter([
       },
       {
         Component: AboutPage,
-        path: 'about'
+        path: "about",
       },
       {
         Component: Contact,
-        path: 'contact'
-      }
-    ]
+        path: "contact",
+      },
+      {
+        Component: Verify,
+        path: "verify",
+      },
+    ],
   },
   {
     Component: Register,
-    path: '/register'
+    path: "/register",
   },
+
+  // dashboard route
   {
-    Component: DashboardContent,
-    path: '/dashboard'
-  }
-  
+    path: "/dashboard",
+    element: <PrivateRoute/>,
+    children: [
+      {
+        Component: DashboardContent,
+        children: [
+          // admin
+          {
+            index: true,
+            element: <Analytics />,
+          },
+          {
+            path: "analytics",
+            element: <Analytics />,
+          },
+          {
+            Component: ManageUsersPage,
+            path: "all-user",
+          },
+          {
+            Component: AllParcel,
+            path: "all-parcel",
+          },
+
+          // sender
+          {
+            Component: AllParcel,
+            path: "my-parcel",
+          },
+          {
+            Component: CreateParcelPage,
+            path: "create-parcel",
+          },
+          
+          // delivery man
+          {
+            Component: MyTasksPage,
+            path: "my-task",
+          },
+        ],
+      },
+    ],
+  },
+
+  // {
+  //   Component: withAuth(DashboardContent, role.SUPER_ADMIN as TUserRole),
+  //   path: '/dashboard',
+  //   children: [
+  //     {
+  //       Component: Analytics,
+  //       path: '/dashboard/analytics'
+  //     },
+  //     ...generateRoutes(SuperAdminSidebar)
+  //   ]
+  // }
 ]);

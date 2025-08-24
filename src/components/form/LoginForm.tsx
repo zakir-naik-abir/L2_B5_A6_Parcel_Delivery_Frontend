@@ -30,18 +30,20 @@ const LoginForm: React.FC = () => {
     } catch (err) {
       console.error(err);
 
-      // if(err.data.message ==="Incorrect Email"){
-      //   toast.error("Incorrect Email")
-      // };
-
-      if(err.data.message ==="Password is wrong"){
-        toast.error("Incorrect Password")
+      if(err.data.message ==="Incorrect Email"){
+        toast.error("Incorrect Email")
       };
+
+      
       
       if(err.data.message ==="You are not verified"){
         toast.error("Your account is not verified");
         navigate("/verify", {state: data.email });
       }
+
+      if(err.data.message ==="Password is wrong"){
+        toast.error("Incorrect Password")
+      };
     }
   };
 
@@ -81,7 +83,7 @@ const LoginForm: React.FC = () => {
           )}
         />
         
-        <Button type="submit" className="w-full  bg-purple-400 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition-colors duration-300">
+        <Button type="submit" className="w-full bg-blue-300  focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300">
           Submit
         </Button>
       </form>

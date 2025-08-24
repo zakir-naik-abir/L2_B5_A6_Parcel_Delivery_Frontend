@@ -44,7 +44,7 @@ const RegisterForm: React.FC = () => {
     },
   });
 
-  const onSubmit = async(data: z.infer<typeof registerSchema>) => {
+  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     const userInfo = {
       name: data.name,
       email: data.email,
@@ -54,10 +54,13 @@ const RegisterForm: React.FC = () => {
     try {
       await register(userInfo).unwrap();
 
-      toast.success('Your account created successful')
-      navigate('/verify');
+      toast.success("Your account created successful");
+      navigate("/verify");
     } catch (error) {
       console.error(error);
+      if (err.data.message === "User Already Exist") {
+        toast.error("This email is all ready have an account");
+      }
     }
   };
 
@@ -128,7 +131,10 @@ const RegisterForm: React.FC = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full  bg-purple-400 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition-colors duration-300">
+        <Button
+          type="submit"
+          className="w-full   bg-blue-300 hover: f focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300"
+        >
           Submit
         </Button>
       </form>

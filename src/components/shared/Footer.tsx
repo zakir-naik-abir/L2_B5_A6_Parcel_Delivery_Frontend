@@ -2,17 +2,18 @@ import { Link } from "react-router";
 
 export default function Footer() {
   return (
+   <>
     <footer className="bg-white dark:bg-gray-900">
-      <div className="mx-auto py-2  ">
-        <div className="flex flex-col items-center gap-4 rounded-lg bg-indigo-500 p-2 px-6 shadow-lg sm:flex-row sm:justify-between">
+      <div className="mx-auto py-2 ">
+        <div className="flex flex-col items-center gap-4 rounded-lg bg-rose-200 p-2 px-6 shadow-lg sm:flex-row sm:justify-between">
           <strong className="text-xl text-white sm:text-xl">
             {" "}
             Make Your Parcel Delivery!{" "}
           </strong>
 
           <Link
-            className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-8 py-3 text-indigo-600 hover:bg-transparent hover:text-white focus:ring-3 focus:outline-hidden"
-            to={"/login"}
+            className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-8 py-1 text-indigo-400 hover:bg-transparent hover:text-white focus:ring-3 focus:outline-hidden"
+            to={"/register"}
           >
             <span className="text-sm font-medium"> Let's Get Started </span>
 
@@ -219,10 +220,10 @@ export default function Footer() {
         </div>
 
 
-          <div className="mt-4 sm:flex sm:items-end sm:justify-between">
-            <Link to={'/'} className="flex justify-center text-teal-600 sm:justify-start dark:text-teal-300">
+          <div className="mt-4 sm:flex sm:items-end sm:justify-center">
+            {/* <Link to={'/'} className="flex justify-center text-teal-600 sm:justify-start dark:text-teal-300">
               <img src="/logo.jpg" alt="" width={80} />
-            </Link>
+            </Link> */}
             <ul className="flex justify-center gap-6 sm:justify-end">
               <li>
                 <a
@@ -335,11 +336,16 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-            <p className="mt-4 text-center text-sm text-gray-500 sm:mt-0 sm:text-right dark:text-gray-400">
-              Copyright &copy; 2025. All rights reserved.
-            </p>
+            
           </div>
         </div>
+
+
     </footer>
+    <footer className="border-t">
+      <div className="container py-2 text-center text-sm text-muted-foreground">
+      Copyright  © {new Date().getFullYear()} ParcelFlow. All rights reserved. Built with Love and Code
+      </div>
+    </footer></>
   );
 }

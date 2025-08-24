@@ -1,4 +1,3 @@
-
 import type { RootState } from "@/redux/store";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
@@ -18,7 +17,7 @@ const initialState: TAuthState = {
   token: null,
 };
 
-const authslice  = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -26,20 +25,20 @@ const authslice  = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
-      localStorage.setItem('token', token)
+      // Note: localStorage is a side-effect, usually not done inside a reducer. 
+      // It's better to handle this in a component or middleware, but for simplicity, this works.
+      localStorage.setItem('token', token);
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem('token')
+      localStorage.removeItem('token');
     },
   },
 });
 
+export const { setUser, logout } = authSlice.actions;
 
-export const { setUser, logout } = authslice.actions;
-
-export default authslice.reducer;
-
-export const  selectCurrentUser = (state: RootState) => state.auth.user;
-export const  selectCurrentToken = (state: RootState) => state.auth.token;
+export default authSlice.reducer;
+export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectCurrentToken = (state: RootState) => state.auth.token;

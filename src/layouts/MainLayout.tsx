@@ -10,7 +10,7 @@ export default function MainLayout({children}: IProps) {
   return (
     <div className="min-h-screen flex flex-col max-w-[2540px] mx-auto xl:px-4 sm:px-2 px-4">
       <Navbar/>
-      <div className="grow">{children}</div>
+      <div className="grow mt-16">{children}</div>
       <Footer/>
     </div>
   )

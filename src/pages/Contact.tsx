@@ -1,8 +1,14 @@
+
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { 
-  FiMapPin, FiPhone, FiMail, FiShare2, FiUser, FiEdit3, FiSend 
-} from 'react-icons/fi';
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
+  MapPin, Phone, Mail, Share2, User, Edit3, Send,
+  Facebook, Twitter, Instagram, Youtube 
+} from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface FormData {
   name: string;
@@ -25,138 +31,128 @@ const ContactPage: React.FC = () => {
     }));
   };
 
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log('Form Data Submitted:', formData);
     alert('Thank you! Your message has been sent.');
-    setFormData({ name: '', email: '', message: '' }); 
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const FADE_UP_ANIMATION_VARIANTS = {
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 20 } },
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="w-full max-w-6xl mx-auto md:grid md:grid-cols-1 lg:grid lg:grid-cols-2 shadow-xl rounded-lg overflow-hidden bg-white">
-        
-        {/* contact information */}
-        <div className="p-8 md:p-12">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800">Contact Us</h1>
-            <p className="mt-4 text-gray-600">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-              doloremque laudantium, totam rem aperiam, eaque inventore
-            </p>
-          </div>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.15,
+            },
+          },
+        }}
+        className="w-full max-w-6xl mx-auto grid lg:grid-cols-2 shadow-2xl rounded-xl overflow-hidden"
+      >
+        {/* Contact Information */}
+        <div className="bg-card p-8 md:p-12 text-card-foreground">
+          <motion.h1 variants={FADE_UP_ANIMATION_VARIANTS} className="text-4xl font-bold text-primary">
+            Contact Us
+          </motion.h1>
+          <motion.p variants={FADE_UP_ANIMATION_VARIANTS} className="mt-4 text-muted-foreground">
+            Have a question or a project in mind? We'd love to hear from you. Fill out the form or use the contact details below.
+          </motion.p>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Location */}
-            <div className="flex items-start">
-              <div className="text-red-600 text-2xl mr-4 mt-1"><FiMapPin /></div>
-              <div>
-                <h3 className="font-semibold text-lg text-gray-800">Location</h3>
-                <p className="text-gray-600 text-sm">Bonani, 2nd block,</p>
-                <p className="text-gray-600 text-sm">Dhaka, Bangladesh</p>
+          <div className="mt-12 space-y-8">
+            {[
+              { icon: MapPin, title: 'Location', lines: ['Bonani, 2nd block,', 'Dhaka, Bangladesh'] },
+              { icon: Phone, title: 'Phone', lines: ['+88 01815-435734', '+88 01788-119167'] },
+              { icon: Mail, title: 'Email', lines: ['zakrihasanabir@gmail.com', 'www.zakirhasanabir.com'] },
+            ].map((item, index) => (
+              <motion.div variants={FADE_UP_ANIMATION_VARIANTS} key={index} className="flex items-start gap-4">
+                <div className="bg-primary/10 text-primary p-3 rounded-lg">
+                  <item.icon className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">{item.title}</h3>
+                  {item.lines.map((line, i) => (
+                    <p key={i} className="text-muted-foreground">{line}</p>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+
+            <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="flex items-start gap-4">
+              <div className="bg-primary/10 text-primary p-3 rounded-lg">
+                <Share2 className="h-6 w-6" />
               </div>
-            </div>
-
-            {/* Phone */}
-            <div className="flex items-start">
-              <div className="text-red-600 text-2xl mr-4 mt-1"><FiPhone /></div>
               <div>
-                <h3 className="font-semibold text-lg text-gray-800">Phone</h3>
-                <p className="text-gray-600 text-sm">+88 01815-435734</p>
-                <p className="text-gray-600 text-sm">+88 01788-119167</p>
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="flex items-start">
-              <div className="text-red-600 text-2xl mr-4 mt-1"><FiMail /></div>
-              <div>
-                <h3 className="font-semibold text-lg text-gray-800">Email</h3>
-                <p className="text-gray-600 text-sm">zakrihasanabir@gmail.com</p>
-                <p className="text-gray-600 text-sm">www.zakirhasanabir.com</p>
-              </div>
-            </div>
-
-            {/* Social */}
-            <div className="flex items-start">
-              <div className="text-red-600 text-2xl mr-4 mt-1"><FiShare2 /></div>
-              <div>
-                <h3 className="font-semibold text-lg text-gray-800">Social</h3>
-                <div className="flex space-x-4 mt-2">
-                  <a href="#" className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-red-600 hover:text-white transition-colors"><FaFacebookF size={14}/></a>
-                  <a href="#" className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-red-600 hover:text-white transition-colors"><FaTwitter size={14}/></a>
-                  <a href="#" className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-red-600 hover:text-white transition-colors"><FaInstagram size={14}/></a>
-                  <a href="#" className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-red-600 hover:text-white transition-colors"><FaYoutube size={14}/></a>
+                <h3 className="font-semibold text-lg">Social</h3>
+                <div className="flex space-x-2 mt-2">
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="#"><Facebook className="h-4 w-4" /></a>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="#"><Twitter className="h-4 w-4" /></a>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="#"><Instagram className="h-4 w-4" /></a>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="#"><Youtube className="h-4 w-4" /></a>
+                  </Button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* contact form */}
-        <div className="bg-gray-100 p-8 md:p-12">
-          <h2 className="text-3xl font-bold text-gray-800">Fill Up The Form</h2>
-          <p className="mt-2 text-sm text-gray-500 mb-8">
+        {/* Contact Form */}
+        <div className="bg-secondary text-gray-500 p-8 md:p-12">
+          <motion.h2 variants={FADE_UP_ANIMATION_VARIANTS} className="text-3xl font-bold">Get In Touch</motion.h2>
+          <motion.p variants={FADE_UP_ANIMATION_VARIANTS} className="mt-2 text-sm text-muted-foreground mb-8">
             Your email address will not be published. Required fields are marked *
-          </p>
+          </motion.p>
 
-          <form onSubmit={handleSubmit}>
-            <div className="relative mb-6">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                <FiUser />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <motion.div variants={FADE_UP_ANIMATION_VARIANTS}>
+              <Label htmlFor="name">Your Name*</Label>
+              <div className="relative mt-2">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input id="name" name="name" type="text" placeholder="John Doe" value={formData.name} onChange={handleChange} required className="pl-10" />
               </div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name*"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full bg-transparent border-b border-gray-300 py-2 pl-10 focus:outline-none focus:border-red-600 transition-colors"
-              />
-            </div>
+            </motion.div>
 
-            <div className="relative mb-6">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                <FiMail />
+            <motion.div variants={FADE_UP_ANIMATION_VARIANTS}>
+              <Label htmlFor="email">Email Address*</Label>
+              <div className="relative mt-2">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input id="email" name="email" type="email" placeholder="john.doe@example.com" value={formData.email} onChange={handleChange} required className="pl-10" />
               </div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address*"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full bg-transparent border-b border-gray-300 py-2 pl-10 focus:outline-none focus:border-red-600 transition-colors"
-              />
-            </div>
+            </motion.div>
 
-            <div className="relative mb-6">
-              <div className="absolute left-3 top-4 text-gray-400">
-                <FiEdit3 />
+            <motion.div variants={FADE_UP_ANIMATION_VARIANTS}>
+              <Label htmlFor="message">Your Message*</Label>
+              <div className="relative mt-2">
+                <Edit3 className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                <textarea id="message" name="message" placeholder="Type your message here..." rows={4} value={formData.message} onChange={handleChange} required className="pl-10" />
               </div>
-              <textarea
-                name="message"
-                placeholder="Enter Your Message here"
-                rows={4}
-                value={formData.message}
-                onChange={handleChange}
-                required
-                className="w-full bg-transparent border-b border-gray-300 py-2 pl-10 focus:outline-none focus:border-red-600 transition-colors"
-              ></textarea>
-            </div>
+            </motion.div>
 
-            <button
-              type="submit"
-              className="bg-red-600 text-white font-bold py-3 px-6 rounded-md flex items-center justify-center gap-2 hover:bg-red-700 transition-colors"
-            >
-              <FiSend />
-              Get In Touch
-            </button>
+            <motion.div variants={FADE_UP_ANIMATION_VARIANTS}>
+              <Button type="submit" className="w-full" size="lg">
+                <Send className="mr-2 h-4 w-4" />
+                Send Message
+              </Button>
+            </motion.div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

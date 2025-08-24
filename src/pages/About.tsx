@@ -1,123 +1,187 @@
-// src/components/AboutPage.tsx
+'use client'; 
 
 import React from 'react';
-import { FiTruck, FiTarget, FiEye, FiZap, FiThumbsUp, FiShield, FiHeart, FiArrowRight } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import {
+  Target,
+  Eye,
+  Zap,
+  ThumbsUp,
+  Shield,
+  ArrowRight,
+} from 'lucide-react';
+
+import { Button } from '@/components/ui/button'; 
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; 
 
 const AboutPage: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="bg-gray-50 text-gray-800">
+    <div className="bg-background text-foreground">
       {/* Hero Section */}
-      <div className="relative bg-blue-300 text-white">
-        <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop')" }}></div>
-        <div className="relative container mx-auto px-6 py-24 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">About Easy Parcel BD</h1>
-          <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="relative text-center overflow-hidden bg-primary/5 dark:bg-primary/10 py-24 sm:py-32"
+      >
+        <div className="container mx-auto px-6">
+          <motion.h1
+            variants={itemVariants}
+            className="text-4xl font-extrabold tracking-tight sm:text-6xl text-primary"
+          >
+            About Easy Parcel BD
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className="mt-6 text-lg leading-8 text-muted-foreground max-w-3xl mx-auto"
+          >
             Your Trusted Delivery Partner for Fast, Secure, and Hassle-free Shipping Across Bangladesh.
-          </p>
+          </motion.p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Mission & Vision Section */}
-      <div className="py-16 bg-white">
-        <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-center md:text-left">
-            <h2 className="text-3xl font-bold text-blue-800 mb-4">Our Mission & Vision</h2>
-            <p className="text-gray-600 mb-6">
-              At Easy Parcel BD, our mission is to revolutionize the logistics industry in Bangladesh. We aim to provide a seamless, tech-driven delivery experience that empowers businesses and connects individuals with unparalleled efficiency and reliability.
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <FiTarget className="text-blue-600 text-3xl mr-4 flex-shrink-0" />
-                <div>
-                  <h3 className="font-semibold text-lg">Our Mission</h3>
-                  <p className="text-gray-500">To offer the fastest and most dependable parcel delivery service, ensuring customer satisfaction at every step.</p>
-                </div>
+      <div className="py-24 sm:py-32">
+        <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="space-y-8"
+          >
+            <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Our Mission & Vision
+            </motion.h2>
+            <motion.p variants={itemVariants} className="text-muted-foreground">
+              At Easy Parcel BD, our mission is to revolutionize the logistics industry in Bangladesh. We aim to provide a seamless, tech-driven delivery experience that empowers businesses and connects individuals.
+            </motion.p>
+            <motion.div variants={itemVariants} className="flex items-start gap-4">
+              <Target className="text-primary h-8 w-8 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold text-lg">Our Mission</h3>
+                <p className="text-muted-foreground">To offer the fastest and most dependable parcel delivery service, ensuring customer satisfaction at every step.</p>
               </div>
-              <div className="flex items-start">
-                <FiEye className="text-blue-600 text-3xl mr-4 flex-shrink-0" />
-                <div>
-                  <h3 className="font-semibold text-lg">Our Vision</h3>
-                  <p className="text-gray-500">To become the leading logistics network in Bangladesh, celebrated for our innovation, customer-centric approach, and nationwide reach.</p>
-                </div>
+            </motion.div>
+            <motion.div variants={itemVariants} className="flex items-start gap-4">
+              <Eye className="text-primary h-8 w-8 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold text-lg">Our Vision</h3>
+                <p className="text-muted-foreground">To become the leading logistics network in Bangladesh, celebrated for our innovation and customer-centric approach.</p>
               </div>
-            </div>
-          </div>
-          <div className=" md:block">
-            <img src="https://internationaltransportagency.com/wp-content/uploads/2025/01/istockphoto-1474043686-612x612-2.jpg" alt="Our Team" className="rounded-lg shadow-xl" />
-          </div>
+            </motion.div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <img src="https://internationaltransportagency.com/wp-content/uploads/2025/01/istockphoto-1474043686-612x612-2.jpg" alt="Our Team" className="rounded-xl shadow-2xl" />
+          </motion.div>
         </div>
       </div>
 
       {/* Why Choose Us Section */}
-      <div className="py-16 bg-gray-50">
+      <div className="bg-secondary/50 py-24 sm:py-32">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-blue-800 mb-2">Why Choose Us?</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-12">We are not just a courier service; we are your growth partner. We provide solutions that make logistics easy for you.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature Card 1 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
-              <FiZap className="text-blue-600 text-4xl mx-auto mb-4" />
-              <h3 className="font-bold text-xl mb-2">Lightning Fast Delivery</h3>
-              <p className="text-gray-500">We ensure your parcels reach their destination in the shortest possible time with our optimized delivery routes.</p>
-            </div>
-            {/* Feature Card 2 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
-              <FiThumbsUp className="text-blue-600 text-4xl mx-auto mb-4" />
-              <h3 className="font-bold text-xl mb-2">Unmatched Reliability</h3>
-              <p className="text-gray-500">With real-time tracking and dedicated support, you can always count on us to deliver your commitments.</p>
-            </div>
-            {/* Feature Card 3 */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
-              <FiShield className="text-blue-600 text-4xl mx-auto mb-4" />
-              <h3 className="font-bold text-xl mb-2">Secure Handling</h3>
-              <p className="text-gray-500">Every parcel is treated with the utmost care. We guarantee secure handling from pickup to delivery.</p>
-            </div>
-          </div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+          >
+            <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Why Choose Us?
+            </motion.h2>
+            <motion.p variants={itemVariants} className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              We are not just a courier service; we are your growth partner. We provide solutions that make logistics easy for you.
+            </motion.p>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {[
+              { icon: Zap, title: "Lightning Fast Delivery", description: "Optimized routes ensure your parcels reach their destination in the shortest possible time." },
+              { icon: ThumbsUp, title: "Unmatched Reliability", description: "With real-time tracking and dedicated support, you can always count on us." },
+              { icon: Shield, title: "Secure Handling", description: "Every parcel is treated with the utmost care, guaranteeing security from pickup to delivery." },
+            ].map((feature, index) => (
+              <motion.div key={index} variants={itemVariants}>
+                <Card className="text-center h-full">
+                  <CardHeader>
+                    <div className="mx-auto bg-primary/10 text-primary p-3 rounded-full w-fit">
+                      <feature.icon className="h-8 w-8" />
+                    </div>
+                    <CardTitle className="pt-4">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
-
-      {/* Our Core Values Section */}
-      <div className="py-16 bg-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-blue-800 mb-12">Our Core Values</h2>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            <div className="flex items-center flex-col">
-              <div className="bg-blue-100 text-blue-600 rounded-full p-4 mb-2">
-                <FiHeart size={28} />
-              </div>
-              <span className="font-semibold">Customer First</span>
-            </div>
-            <div className="flex items-center flex-col">
-              <div className="bg-blue-100 text-blue-600 rounded-full p-4 mb-2">
-                <FiTruck size={28} />
-              </div>
-              <span className="font-semibold">Integrity</span>
-            </div>
-            <div className="flex items-center flex-col">
-              <div className="bg-blue-100 text-blue-600 rounded-full p-4 mb-2">
-                <FiTarget size={28} />
-              </div>
-              <span className="font-semibold">Commitment</span>
-            </div>
-            <div className="flex items-center flex-col">
-              <div className="bg-blue-100 text-blue-600 rounded-full p-4 mb-2">
-                <FiZap size={28} />
-              </div>
-              <span className="font-semibold">Innovation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      
       {/* Call to Action (CTA) Section */}
-      <div className="bg-purple-300">
-        <div className="container mx-auto px-6 py-12 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to Ship with Ease?</h2>
-          <p className="max-w-2xl mx-auto mb-8">Join thousands of businesses and individuals who trust Easy Parcel BD for their delivery needs.</p>
-          <button className="bg-white text-blue-800 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-colors flex items-center justify-center mx-auto group">
-            Create an Account
-            <FiArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-          </button>
+      <div className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-6 py-16 sm:py-24 text-center">
+          <motion.h2
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-bold tracking-tight sm:text-4xl"
+          >
+            Ready to Ship with Ease?
+          </motion.h2>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-4 max-w-2xl mx-auto"
+          >
+            Join thousands who trust Easy Parcel BD for their delivery needs.
+          </motion.p>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-8"
+          >
+            <Button size="lg" variant="secondary" className="group">
+              Create an Account
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </motion.div>
         </div>
       </div>
     </div>
